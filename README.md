@@ -26,7 +26,7 @@ A web application for self‑assessment of HR skills such as delegation, recruit
 
 ## Author
 
-**Egor Zaitsev**  
+**Egor Zaythev**  
 Frontend Developer, BSUIR student  
 GitHub: https://github.com/EgorUser556
 
