@@ -10,6 +10,15 @@ export default function ResultPage(){
     useEffect(()=>{
         const raw = localStorage.getItem('lastResult');
         if(raw) setData(JSON.parse(raw));
+        let frame;
+            const animate = () => {
+                if (!drag.current.down) {
+                    setRot(r => ({ x: r.x, y: r.y + 0.15 })); // медленное авто-вращение
+                }
+                frame = requestAnimationFrame(animate);
+            };
+            frame = requestAnimationFrame(animate);
+            return () => cancelAnimationFrame(frame);
     },[]);
 
     useEffect(()=>{
@@ -17,9 +26,14 @@ export default function ResultPage(){
         if(!el) return;
         const onDown = (e)=>{
             drag.current.down = true;
-            drag.current.startX = e.clientX; drag.current.startY = e.clientY;
+            drag.current.startX = e.clientX;
+            drag.current.startY = e.clientY;
+            drag.current.rotX = rot.x;
+            drag.current.rotY = rot.y;
         };
-        const onUp = ()=>{ drag.current.down=false; drag.current.rotX = rot.x; drag.current.rotY = rot.y; };
+        const onUp = ()=>{
+            drag.current.down=false;
+        };
         const onMove = (e)=>{
             if(!drag.current.down) return;
             const dx = e.clientX - drag.current.startX;

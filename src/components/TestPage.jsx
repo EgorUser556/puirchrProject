@@ -26,8 +26,22 @@ export default function TestPage(){
 
     const progress = Math.round((answers.filter(Boolean).length / questions.length) * 100);
 
+    const canGoNext = answers[current] !== null;
+
+    const handleNext = () => {
+        if (!canGoNext) return; // можно ещё показывать сообщение об ошибке
+        setCurrent((c) => Math.min(c + 1, questions.length - 1));
+    };
+
+    const handlePrev = () => {
+        setCurrent((c) => Math.max(c - 1, 0));
+    };
 
     const handleSubmit = ()=>{
+        if (answers.some(a => a === null)) {
+
+            return;
+        }
         const numeric = answers.map(a=>a||0);
         const sum = numeric.reduce((s,v)=>s+v,0);
         const avg = numeric.length? (sum / numeric.filter(Boolean).length) : 0;
@@ -65,9 +79,9 @@ export default function TestPage(){
                     <div style={{display:'flex', gap:10, marginTop:8}}>
                         <button className="btn ghost" onClick={()=>setCurrent(Math.max(0,current-1))} disabled={current===0}>Назад</button>
                         {current < questions.length-1 ? (
-                            <button className="btn" onClick={()=>setCurrent(Math.min(questions.length-1, current+1))}>Далее</button>
+                            <button className="btn" onClick={()=>setCurrent(Math.min(questions.length-1, current+1))} disabled={!canGoNext}>Далее</button>
                         ) : (
-                            <button className="btn" onClick={handleSubmit}>Завершить и посмотреть результат</button>
+                            <button className="btn" onClick={handleSubmit} disabled={!canGoNext}>Завершить и посмотреть результат</button>
                         )}
                         <div style={{marginLeft:'auto', alignSelf:'center'}} className="small">Заполнено: {answers.filter(Boolean).length}/{questions.length}</div>
                     </div>
