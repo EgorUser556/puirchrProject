@@ -24,6 +24,8 @@ A web application for self‑assessment of HR skills such as delegation, recruit
 3. Start the development server: npm start
 4. Open the app in the browser: Usually available at `http://localhost:3000`.
 
+Or you can just visit here https://692da50473dabd92acafbff8--capable-haupia-0e3244.netlify.app/
+
 ## Author
 
 **Egor Zaythev**  
